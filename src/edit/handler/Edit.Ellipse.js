@@ -220,7 +220,11 @@ L.Ellipse.addInitHook(function () {
     })
 
     this.on('remove', function () {
-        if (this.editing && this.editing.enabled()) {
+        /** Note: added check for resizeMarkers due to unexpected
+         *  behavior when using in react-leaflet and editing is
+         *  enabled when you remove map.
+         */
+        if (this.editing && this.editing.enabled() && this.editing._resizeMarkers) {
             this.editing.removeHooks()
         }
     })
