@@ -71,12 +71,12 @@ L.Draw.Ellipse = L.Draw.Feature.extend({
                 center: [this._startLatLng.lat, this._startLatLng.lng],
                 semiMinor: radius / 2,
                 SemiMajor: radius,
-                tilt: this._bearing
+                bearing: this._bearing
             }, this.options.shapeOptions));
             this._map.addLayer(this._shape);
         } else {
             this._bearing = this._computeBearing(latlng);
-            this._shape.setTilt(this._bearing);
+            this._shape.setBearing(this._bearing);
 
             this._radius = radius = this.getDistance(this._startLatLng, latlng);
             this._shape.setSemiMinor(radius / 2);
@@ -89,7 +89,7 @@ L.Draw.Ellipse = L.Draw.Feature.extend({
             center: [this._startLatLng.lat, this._startLatLng.lng],
             semiMinor: this._shape._semiMinor,
             semiMajor: this._shape._semiMajor,
-            tilt: this._bearing
+            bearing: this._bearing
         }));
 
         L.Draw.SimpleShape.prototype._fireCreatedEvent.call(this, ellipse);
@@ -243,7 +243,7 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
     },
     getMarkerPos: function getMarkerPos(deg) {
         var center = this._shape.getCenter();
-        var trueStart = this.wrapBrg(this._shape.getTilt());
+        var trueStart = this.wrapBrg(this._shape.getBearing());
         var semiMinor = this._shape.getSemiMinor();
         var semiMajor = this._shape.getSemiMajor();
         return this.getPos(center, deg, trueStart, semiMinor, semiMajor);
@@ -328,7 +328,7 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
     _rotate: function _rotate(latlng) {
         var fixedLatLng = this._moveMarker.getLatLng();
         var bearing = this._computeBearing(fixedLatLng, latlng);
-        this._shape.setTilt(bearing);
+        this._shape.setBearing(bearing);
         this._shape.setLatLngs();
         // Move the resize marker
         this._repositionResizeMarkers();

@@ -73,7 +73,7 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
 
     getMarkerPos (deg) {
         const center = this._shape.getCenter()
-        const trueStart = this.wrapBrg(this._shape.getTilt())
+        const trueStart = this.wrapBrg(this._shape.getBearing())
         const semiMinor = this._shape.getSemiMinor()
         const semiMajor = this._shape.getSemiMajor()
         return this.getPos(center, deg, trueStart, semiMinor, semiMajor)
@@ -168,7 +168,7 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
     _rotate (latlng) {
         const fixedLatLng = this._moveMarker.getLatLng()
         const bearing = this._computeBearing(fixedLatLng, latlng)
-        this._shape.setTilt(bearing)
+        this._shape.setBearing(bearing)
         this._shape.setLatLngs()
         // Move the resize marker
         this._repositionResizeMarkers()

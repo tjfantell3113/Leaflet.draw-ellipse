@@ -60,14 +60,14 @@ L.Draw.Ellipse = L.Draw.Feature.extend({
                 center: [this._startLatLng.lat, this._startLatLng.lng],
                 semiMinor: radius / 2,
                 SemiMajor: radius,
-                tilt: this._bearing,
+                bearing: this._bearing,
                 ...this.options.shapeOptions
             })
             this._map.addLayer(this._shape)
 
         } else {
             this._bearing = this._computeBearing(latlng)
-            this._shape.setTilt(this._bearing)
+            this._shape.setBearing(this._bearing)
 
             this._radius = radius = this.getDistance(this._startLatLng, latlng)
             this._shape.setSemiMinor(radius / 2)
@@ -83,7 +83,7 @@ L.Draw.Ellipse = L.Draw.Feature.extend({
                 center: [this._startLatLng.lat, this._startLatLng.lng],
                 semiMinor: this._shape._semiMinor,
                 semiMajor: this._shape._semiMajor,
-                tilt: this._bearing
+                bearing: this._bearing
             }
         )
 
