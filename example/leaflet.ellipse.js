@@ -105,6 +105,13 @@ L.Ellipse = L.Polygon.extend({
     getTilt: function getTilt() {
         return this._tiltDeg;
     },
+    setBearing: function setBearing(tilt) {
+        this._tiltDeg = tilt;
+        return this.redraw();
+    },
+    getBearing: function getBearing() {
+        return this._tiltDeg;
+    },
     getNumberOfPoints: function getNumberOfPoints() {
         return this._numberOfPoints;
     },
