@@ -43,7 +43,7 @@ var atan2d = function atan2d(y, x) {
 };
 
 var closeToZero = function closeToZero(x) {
-    return Math.abs(x) < 0.0000000001 ? 0 : x;
+    return (!isNaN(x) && Math.abs(x) < 0.0000000001) ? 0 : x;
 };
 
 L.Ellipse = L.Polygon.extend({
@@ -66,7 +66,12 @@ L.Ellipse = L.Polygon.extend({
             numberOfPoints = _ref$numberOfPoints === undefined ? 61 : _ref$numberOfPoints,
             options = objectWithoutProperties(_ref, ['center', 'semiMinor', 'semiMajor', 'tilt', 'numberOfPoints']);
 
-        this.setOptions(options).setCenter(center).setSemiMinor(semiMinor).setSemiMajor(semiMajor).setTilt(tilt).setNumberOfPoints(numberOfPoints);
+        this.setOptions(options)
+            .setCenter(center)
+            .setSemiMinor(semiMinor)
+            .setSemiMajor(semiMajor)
+            .setTilt(tilt)
+            .setNumberOfPoints(numberOfPoints);
         this.setLatLngs();
         this.setRhumb();
     },
