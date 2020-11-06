@@ -354,13 +354,17 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
         return bearing || this._bearing;
     },
     _repositionResizeMarkers: function _repositionResizeMarkers() {
-        this._resizeMarkers[0].setLatLng(this.getMarkerPos(0));
-        this._resizeMarkers[1].setLatLng(this.getMarkerPos(180));
-        this._resizeMarkers[2].setLatLng(this.getMarkerPos(90));
-        this._resizeMarkers[3].setLatLng(this.getMarkerPos(270));
+        if (this._resizeMarkers !== undefined) {
+            this._resizeMarkers[0].setLatLng(this.getMarkerPos(0));
+            this._resizeMarkers[1].setLatLng(this.getMarkerPos(180));
+            this._resizeMarkers[2].setLatLng(this.getMarkerPos(90));
+            this._resizeMarkers[3].setLatLng(this.getMarkerPos(270));
+        }
     },
     _repositionRotateMarker: function _repositionRotateMarker() {
-        this._rotateMarker.setLatLng(this.getRotateMarkerPos());
+        if (this._rotateMarker !== undefined) {
+            this._rotateMarker.setLatLng(this.getRotateMarkerPos());
+        }
     }
 });
 
