@@ -192,34 +192,6 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
             className: 'leaflet-div-icon leaflet-editing-icon leaflet-edit-rotate'
         })
     },
-    disableMarker: function disableMarker(markerName) {
-        switch (markerName) {
-            case 'move':
-                this._moveMarker.disable();
-                break;
-            case 'resize':
-                this._resizeMarkers.disable();
-                break;
-            case 'rotate':
-                this._rotateMarker.disable();
-                break;
-            default:
-        }
-    },
-    enableMarker: function enableMarker(markerName) {
-        switch (markerName) {
-        case 'move':
-            this._moveMarker.enable();
-            break;
-        case 'resize':
-            this._resizeMarkers.enable();
-            break;
-        case 'rotate':
-            this._rotateMarker.enable();
-            break;
-        default:
-        }
-    },
     wrapBrg: function wrapBrg(brg) {
         if (brg < 0.0) {
             brg += 360.0;
@@ -281,13 +253,17 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
         }
 
         // Create center marker
-        this._createMoveMarker();
-
-        // Create edge marker
-        this._createResizeMarker();
-
+        if (this._shape.options.lockPos && this._shape.options.lockPos == false) {
+            this._createMoveMarker();
+        }
+        // Create edge markers
+        if (this._shape.options.lockSize && this._shape.options.lockSize == false) {
+            this._createResizeMarker();
+        }
         // Create rotate Marker();
-        this._createRotateMarker();
+        if (this._shape.options.lockRotation && this._shape.options.lockRotation == false) {
+            this._createRotateMarker();
+        }
     },
     _createMoveMarker: function _createMoveMarker() {
         var center = this._shape.getCenter();
@@ -344,16 +320,8 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
         // Move the rotate marker
         this._repositionRotateMarker();
     },
-    _computeBearing: function _computeBearing(fixedLatlng, latlng) {
-        var RAD_TO_DEG = 180 / Math.PI;
-        var pc = this._map.project(fixedLatlng);
-        var ph = this._map.project(latlng);
-        var v = [ph.x - pc.x, ph.y - pc.y];
-        var bearing = Math.atan2(v[0], -v[1]) * RAD_TO_DEG % 360;
-        return bearing || this._bearing;
-    },
     _rotate: function _rotate(latlng) {
-        var fixedLatLng = this._moveMarker.getLatLng();
+        var fixedLatLng = this._shape.getCenter();
         var bearing = this._computeBearing(fixedLatLng, latlng);
         this._shape.setBearing(bearing);
         this._shape.setLatLngs();
@@ -376,6 +344,14 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
         this._repositionResizeMarkers();
         // Move the rotate marker
         this._repositionRotateMarker();
+    },
+    _computeBearing: function _computeBearing(fixedLatlng, latlng) {
+        var RAD_TO_DEG = 180 / Math.PI;
+        var pc = this._map.project(fixedLatlng);
+        var ph = this._map.project(latlng);
+        var v = [ph.x - pc.x, ph.y - pc.y];
+        var bearing = Math.atan2(v[0], -v[1]) * RAD_TO_DEG % 360;
+        return bearing || this._bearing;
     },
     _repositionResizeMarkers: function _repositionResizeMarkers() {
         this._resizeMarkers[0].setLatLng(this.getMarkerPos(0));
