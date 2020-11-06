@@ -192,34 +192,6 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
             className: 'leaflet-div-icon leaflet-editing-icon leaflet-edit-rotate'
         })
     },
-    disableMarker: function disableMarker(markerName) {
-        switch (markerName) {
-            case 'move':
-                this._moveMarker.disable();
-                break;
-            case 'resize':
-                this._resizeMarkers.disable();
-                break;
-            case 'rotate':
-                this._rotateMarker.disable();
-                break;
-            default:
-        }
-    },
-    enableMarker: function enableMarker(markerName) {
-        switch (markerName) {
-        case 'move':
-            this._moveMarker.enable();
-            break;
-        case 'resize':
-            this._resizeMarkers.enable();
-            break;
-        case 'rotate':
-            this._rotateMarker.enable();
-            break;
-        default:
-        }
-    },
     wrapBrg: function wrapBrg(brg) {
         if (brg < 0.0) {
             brg += 360.0;
@@ -281,13 +253,17 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
         }
 
         // Create center marker
-        this._createMoveMarker();
-
-        // Create edge marker
-        this._createResizeMarker();
-
+        if (this._shape.options.lockPos !== undefined && this._shape.options.lockPos == false) {
+            this._createMoveMarker();
+        }
+        // Create edge markers
+        if (this._shape.options.lockSize !== undefined && this._shape.options.lockSize == false) {
+            this._createResizeMarker();
+        }
         // Create rotate Marker();
-        this._createRotateMarker();
+        if (this._shape.options.lockRotation !== undefined && this._shape.options.lockRotation == false) {
+            this._createRotateMarker();
+        }
     },
     _createMoveMarker: function _createMoveMarker() {
         var center = this._shape.getCenter();
