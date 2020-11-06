@@ -192,7 +192,34 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
             className: 'leaflet-div-icon leaflet-editing-icon leaflet-edit-rotate'
         })
     },
-
+    disableMarker: function disableMarker(markerName) {
+        switch (markerName) {
+            case 'move':
+                this._moveMarker.disable();
+                break;
+            case 'resize':
+                this._resizeMarkers.disable();
+                break;
+            case 'rotate':
+                this._rotateMarker.disable();
+                break;
+            default:
+        }
+    },
+    enableMarker: function enableMarker(markerName) {
+        switch (markerName) {
+        case 'move':
+            this._moveMarker.enable();
+            break;
+        case 'resize':
+            this._resizeMarkers.enable();
+            break;
+        case 'rotate':
+            this._rotateMarker.enable();
+            break;
+        default:
+        }
+    },
     wrapBrg: function wrapBrg(brg) {
         if (brg < 0.0) {
             brg += 360.0;

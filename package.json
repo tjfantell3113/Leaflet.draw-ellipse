@@ -1,6 +1,6 @@
 {
   "name": "@tjfantell3113/leaflet.draw-ellipse-edited",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "description": "A plugin for leaflet that allows creating editable ellipses as well as other shapes. This package is almost entirely the work of Moebius Solutions and jjwtay.",
   "main": "Leaflet.draw-ellipse.js",
   "scripts": {
@@ -19,9 +19,9 @@
   "author": "Kevin Taylor",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MoebiusSolutions/leaflet-draw-ellipse/issues"
+    "url": "https://github.com/tjfantell3113/Leaflet.draw-ellipse/issues"
   },
-  "homepage": "https://github.com/MoebiusSolutions/leaflet-draw-ellipse#readme",
+  "homepage": "https://github.com/tjfantell3113/Leaflet.draw-ellipse#readme",
   "devDependencies": {
     "@jjwtay/leaflet.ellipse": "^2.0.0",
     "babel-core": "^6.25.0",
@@ -32,8 +32,5 @@
     "geolib": "^2.0.22",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-node-resolve": "^3.0.0"
-  },
-  "dependencies": {
-    "the-answer": "^1.0.0"
   }
 }
