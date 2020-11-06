@@ -253,15 +253,15 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
         }
 
         // Create center marker
-        if (this._shape.options.lockPos && this._shape.options.lockPos == false) {
+        if (this._shape.options.lockPos === undefined || this._shape.options.lockPos === false) {
             this._createMoveMarker();
         }
         // Create edge markers
-        if (this._shape.options.lockSize && this._shape.options.lockSize == false) {
+        if (this._shape.options.lockSize === undefined || this._shape.options.lockSize === false) {
             this._createResizeMarker();
         }
         // Create rotate Marker();
-        if (this._shape.options.lockRotation && this._shape.options.lockRotation == false) {
+        if (this._shape.options.lockRotation === undefined || this._shape.options.lockRotation === false) {
             this._createRotateMarker();
         }
     },
