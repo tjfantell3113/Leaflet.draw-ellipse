@@ -323,6 +323,7 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
     _rotate: function _rotate(latlng) {
         var fixedLatLng = this._shape.getCenter();
         var bearing = this._computeBearing(fixedLatLng, latlng);
+        bearing = (isNaN(bearing) || bearing === undefined) ? 0 : bearing;
         this._shape.setBearing(bearing);
         this._shape.setLatLngs();
         // Move the resize marker

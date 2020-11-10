@@ -104,14 +104,18 @@ L.Ellipse = L.Polygon.extend({
         return this._semiMajor;
     },
     setTilt: function setTilt(tilt) {
-        this._tiltDeg = tilt;
+        if (tilt !== undefined || tilt !== null) {
+            this._tiltDeg = tilt;
+        }
         return this.redraw();
     },
     getTilt: function getTilt() {
         return this._tiltDeg;
     },
     setBearing: function setBearing(tilt) {
-        this._tiltDeg = tilt;
+        if (tilt !== undefined || tilt !== null) {
+            this._tiltDeg = tilt;
+        }
         return this.redraw();
     },
     getBearing: function getBearing() {
@@ -149,6 +153,9 @@ L.Ellipse = L.Polygon.extend({
             y = void 0;
         var latlngs = [];
         var brg = wrapBrg(this.getTilt());
+        if (brg === undefined || brg === null) {
+            this.setTilt(0);
+        }
         var delta = 360 / (this._numberOfPoints - 1);
 
         if (this._semiMinor === this._semiMajor) {
@@ -243,7 +250,7 @@ L.Ellipse = L.Polygon.extend({
     computeDestinationPos: function computeDestinationPos() {
         var start = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { lat: 0, lng: 0 };
         var distance = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-        var bearing = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+        var bearing = arguments.length > 2 && arguments[2] !== undefined && !isNaN(arguments[2]) ? arguments[2] : 0;
         var rng = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 6378137;
 
         var bng = bearing * Math.PI / 180;
