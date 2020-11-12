@@ -90,14 +90,22 @@ L.Ellipse = L.Polygon.extend({
         return this._center;
     },
     setSemiMinor: function setSemiMinor(val) {
-        this._semiMinor = val;
+        if (this._semiMinor === undefined || val <= this._semiMajor) {
+            this._semiMinor = val;
+        } else {
+            this._semiMinor = this._semiMajor;
+        }
         return this.redraw();
     },
     getSemiMinor: function getSemiMinor() {
         return this._semiMinor;
     },
     setSemiMajor: function setSemiMajor(val) {
-        this._semiMajor = val;
+        if (this._semiMajor === undefined || val >= this._semiMinor) {
+            this._semiMajor = val;
+        } else {
+            this._semiMajor = this._semiMinor;
+        }
         return this.redraw();
     },
     getSemiMajor: function getSemiMajor() {

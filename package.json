@@ -1,6 +1,6 @@
 {
   "name": "@tjfantell3113/leaflet.draw-ellipse-edited",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "A plugin for leaflet that allows creating editable ellipses as well as other shapes. This package is almost entirely the work of Moebius Solutions and jjwtay.",
   "main": "Leaflet.draw-ellipse.js",
   "scripts": {
